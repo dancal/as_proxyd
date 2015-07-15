@@ -1,4 +1,4 @@
-as_proxyd README
+as_proxyd
 ==============
 
 as_proxyd is a http proxy for aerospike.
@@ -6,7 +6,7 @@ Its main features and design principles are:
 
 - Simple and intuitive API and data model
 - Proxy which translates http protocol to Aerospike protocol
-- A connection pool for Aeorpsike.
+- A connection pool for Aeropsike [ http://www.aerospike.com/ ].
 
 as_proxyd is licensed under the MIT license; see LICENSE in the source distribution for details.
 
