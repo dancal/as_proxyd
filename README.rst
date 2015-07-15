@@ -147,3 +147,65 @@ code::
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($ch);
  ?>
+
+
+AB TEST
+-------------
+
+result::
+
+ $ ab -k -n 10000000 -c 1024 -t 300 "http://172.16.xx.xx:8000/GET?ns=test_ns&set=test_set&key=test"
+
+ This is ApacheBench, Version 2.0.40-dev <$Revision: 1.146 $> apache-2.0
+ Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+ Copyright 2006 The Apache Software Foundation, http://www.apache.org/
+
+ Benchmarking 172.16.6.32 (be patient)
+ Completed 5000 requests
+ Completed 10000 requests
+ Completed 15000 requests
+ Completed 20000 requests
+ Completed 25000 requests
+ Completed 30000 requests
+ Completed 35000 requests
+ Completed 40000 requests
+ Completed 45000 requests
+ Finished 50000 requests
+
+ Server Software:        
+ Server Hostname:        172.16.6.32
+ Server Port:            8000
+
+ Document Path:          /GET?ns=test_ns&set=test_set&key=test
+ Document Length:        200 bytes
+
+ Concurrency Level:      1024
+ Time taken for tests:   0.740346 seconds
+ Complete requests:      50000
+ Failed requests:        0
+ Write errors:           0
+ Keep-Alive requests:    50000
+ Total transferred:      15500930 bytes
+ HTML transferred:       10000600 bytes
+ Requests per second:    67535.99 [#/sec] (mean)
+ Time per request:       15.162 [ms] (mean)
+ Time per request:       0.015 [ms] (mean, across all concurrent requests)
+ Transfer rate:          20445.85 [Kbytes/sec] received
+
+ Connection Times (ms)
+               min  mean[+/-sd] median   max
+ Connect:        0    0   2.1      0      25
+ Processing:     3   13   7.8     13     290
+ Waiting:        3   13   7.8     13     289
+ Total:          3   13   8.3     13     309
+
+ Percentage of the requests served within a certain time (ms)
+  50%     13
+  66%     14
+  75%     15
+  80%     16
+  90%     20
+  95%     25
+  98%     29
+  99%     38
+ 100%    309 (longest request)
