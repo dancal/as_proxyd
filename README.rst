@@ -65,10 +65,27 @@ $ vi conf/config.ini
 $ ./bin/as_proxyd
 
 
+as_proxyd CONFIG EXAMPLE
+-------------
+
+conf/config.ini::
+
+[server]
+host        = 0.0.0.0
+port        = 8000
+max_thread  = 8
+status      = /path/alive.html
+
+[aerospike]
+servers     = "172.16.xx.xx,172.16.xx.xx";
+port        = 3000
+timeout     = 20
+
+
 GET EXAMPLE
 -------------
 
-http://172.16.6.32:4000/GET?ns=test_ns&set=test_set&key=test
+http://172.16.xx.xx:8000/GET?ns=test_ns&set=test_set&key=test
 
 output::
 
