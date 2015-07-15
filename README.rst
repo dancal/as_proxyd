@@ -2,7 +2,6 @@ as_proxyd
 ==============
 
 as_proxyd is a http proxy for aerospike.
-Its main features and design principles are:
 
 - Simple and intuitive API and data model
 - Proxy which translates http protocol to Aerospike protocol
