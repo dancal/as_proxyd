@@ -1,6 +1,20 @@
 as_proxyd README
 ==============
 
+as_proxyd is a http proxy for aerospike.
+Its main features and design principles are:
+
+- Simple and intuitive API and data model
+- Proxy which translates http protocol to Aerospike protocol
+- A connection pool for Aeorpsike.
+
+as_proxyd is licensed under the MIT license; see LICENSE in the source distribution for details.
+
+
+Description
+----------------------------
+
+
 Compilation and Installation
 ----------------------------
 
@@ -28,7 +42,9 @@ $ make
 * jansson
 -----------------------------::
 
-$ cd libs/jansson
+$ cd libs
+$ git clone https://github.com/akheron/jansson.git
+$ cd jansson
 $ ./release.sh
 $ ./configure
 $ make
@@ -36,7 +52,9 @@ $ make
 * jemalloc
 -----------------------------::
 
-$ cd libs/jemalloc
+$ cd libs
+$ git clone https://github.com/jemalloc/jemalloc.git
+$ cd jemalloc
 $ ./autogen.sh
 $ ./configure
 
@@ -47,6 +65,8 @@ $ make
 $ vi conf/config.ini
 $ ./bin/as_proxyd
 
+
+## Example
 
 == GET EXAMPLE
 
