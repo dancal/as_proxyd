@@ -79,6 +79,7 @@ server::server(const std::string& address, unsigned int port, AS_CONTROL *pasOP,
     acceptor_.set_option(boost::asio::ip::tcp::no_delay(true));
     acceptor_.set_option(boost::asio::ip::tcp::acceptor::keep_alive(true));
   	acceptor_.set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
+
   	acceptor_.bind(endpoint);
   	acceptor_.listen();
 

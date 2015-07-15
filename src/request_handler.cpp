@@ -113,7 +113,7 @@ namespace http {
 
 		void request_handler::handle_request(const request& req, reply& rep, bool keepalive) {
 
-			//microtime::microtime_t __max_exec_start_time__  = microtime::now();
+			microtime::microtime_t __max_exec_start_time__  = microtime::now();
 
 			std::string request_path;
 			std::string urlfile;
@@ -225,24 +225,23 @@ namespace http {
 				json_object_set_new_nocheck(root, "proxy_code", json_integer(404) );
 				json_object_set_new_nocheck(root, "proxy_status", json_string("API ERROR") );
 			}
-
 			//json_object_set_new_nocheck(root, "proxy_latency", json_real( microtime::seconds_since(__max_exec_start_time__) ));
 
 			//build http response
-			//rep = reply::stock_reply(reply::ok);
 			rep.headers.clear();
 			rep.status = reply::ok;
 
 			char *result	= json_dumps(root, 0);
 			rep.content.append( result, strlen(result) );
+			rep.content.append("\r\n");
             free(result);
 
             json_decref(root);
 
 			rep.headers.push_back(header("Content-Length", boost::lexical_cast<std::string>(rep.content.size())));
 			rep.headers.push_back(header("Content-Type", "application/json; charset=utf8"));
-			rep.headers.push_back(header("Date", FormatTime("%a, %d %b %Y %H:%M:%S GMT", req.tstamp)));
-		    rep.headers.push_back(header("Expires", "0"));
+			//rep.headers.push_back(header("Date", FormatTime("%a, %d %b %Y %H:%M:%S GMT", req.tstamp)));
+		    //rep.headers.push_back(header("Expires", "0"));
 
 			if (keepalive)
 				rep.headers.push_back(header("Connection", "Keep-Alive"));
