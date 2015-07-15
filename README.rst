@@ -18,14 +18,14 @@ Compilation and Installation
 ----------------------------
 
 * centos
------------------------------::
 
+install::
 $ sudo yum install openssl-devel glibc-devel autoconf automake libtool
 $ sudo yum install lua-devel 
 
 * boost install [ http://www.boost.org/ ]
------------------------------::
 
+install::
 $ cd libs
 $ wget "http://downloads.sourceforge.net/project/boost/boost/1.58.0/boost_1_58_0.tar.gz?r=http%3A%2F%2Fwww.boost.org%2Fusers%2Fhistory%2Fversion_1_58_0.html&ts=1436937714&use_mirror=jaist" -O boost_1_58_0.tar.gz
 $ tar xvzf boost_1_58_0.tar.gz
@@ -35,8 +35,8 @@ $ ./b2
 
 
 * aerospike-client-c [ https://github.com/aerospike/aerospike-client-c ]
------------------------------::
 
+install::
 $ cd ..
 $ git clone https://github.com/aerospike/aerospike-client-c.git
 $ cd aerospike-client-c
@@ -45,8 +45,8 @@ $ git submodule update
 $ make
 
 * jansson [ http://jansson.readthedocs.org/en/latest/index.html ]
------------------------------::
 
+install::
 $ cd ..
 $ git clone https://github.com/akheron/jansson.git
 $ cd jansson
@@ -57,7 +57,6 @@ $ make
 * jemalloc [ http://www.canonware.com/jemalloc/ ]
 
 install::
-
 $ cd ..
 $ git clone https://github.com/jemalloc/jemalloc.git
 $ cd jemalloc
