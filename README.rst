@@ -20,10 +20,10 @@ Compilation and Installation
 * centos
 -----------------------------::
 
-$ yum install openssl openssl-devel
-$
+$ sudo yum install openssl-devel glibc-devel autoconf automake libtool
+$ sudo yum install lua-devel 
 
-* boost install
+* boost install [ http://www.boost.org/ ]
 -----------------------------::
 
 $ cd libs
@@ -34,7 +34,7 @@ $ ./bootstrap.sh
 $ ./b2
 
 
-* aerospike-client-c
+* aerospike-client-c [ https://github.com/aerospike/aerospike-client-c ]
 -----------------------------::
 
 $ cd ..
@@ -44,7 +44,7 @@ $ git submodule init
 $ git submodule update
 $ make
 
-* jansson
+* jansson [ http://jansson.readthedocs.org/en/latest/index.html ]
 -----------------------------::
 
 $ cd ..
@@ -54,7 +54,7 @@ $ ./release.sh
 $ ./configure
 $ make
 
-* jemalloc
+* jemalloc [ http://www.canonware.com/jemalloc/ ]
 -----------------------------::
 
 $ cd ..
