@@ -94,7 +94,7 @@ code::
 
  <?php
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'http://172.16.6.32:4000/GET?ns=test_ns&set=test_set&key=test');
+    curl_setopt($ch, CURLOPT_URL, 'http://172.16.xx.xx:8000/GET?ns=test_ns&set=test_set&key=test');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($ch);
     var_dump($response);
