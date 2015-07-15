@@ -65,7 +65,7 @@ int main() {
 	try {
 
 		WriteLogFile("==================================================");
-	    WriteLogFile("%-40s : %s", "wp_bid_engine version", SERVER_VER );
+	    WriteLogFile("%-40s : %s", "as_proxyd version", SERVER_VER );
 
     	INIReader reader( the_config_file );
         if (reader.ParseError() < 0) {
@@ -77,7 +77,7 @@ int main() {
 
 		std::string health_file	= reader.Get("server", "status", "");
     	std::string host    	= reader.Get("server", "host", "0.0.0.0");
-        int port         		= reader.GetInteger("server", "port", 4000);
+        int port         		= reader.GetInteger("server", "port", 8000);
 		int max_thread			= reader.GetInteger("server", "max_thread", 8);
 
 		std::string as_servers	= reader.Get("aerospike", "servers", "127.0.0.1");

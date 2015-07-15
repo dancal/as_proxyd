@@ -113,7 +113,7 @@ namespace http {
 
 		void request_handler::handle_request(const request& req, reply& rep, bool keepalive) {
 
-			microtime::microtime_t __max_exec_start_time__  = microtime::now();
+			//microtime::microtime_t __max_exec_start_time__  = microtime::now();
 
 			std::string request_path;
 			std::string urlfile;
@@ -226,7 +226,7 @@ namespace http {
 				json_object_set_new_nocheck(root, "proxy_status", json_string("API ERROR") );
 			}
 
-			json_object_set_new_nocheck(root, "proxy_latency", json_real( microtime::seconds_since(__max_exec_start_time__) ));
+			//json_object_set_new_nocheck(root, "proxy_latency", json_real( microtime::seconds_since(__max_exec_start_time__) ));
 
 			//build http response
 			//rep = reply::stock_reply(reply::ok);
