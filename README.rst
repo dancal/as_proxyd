@@ -55,7 +55,9 @@ $ ./configure
 $ make
 
 * jemalloc [ http://www.canonware.com/jemalloc/ ]
-::
+
+install::
+
 $ cd ..
 $ git clone https://github.com/jemalloc/jemalloc.git
 $ cd jemalloc
