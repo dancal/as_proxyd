@@ -4,20 +4,26 @@ as_proxyd README
 Compilation and Installation
 ----------------------------
 
-* aerospike-client-c
------------------------------::
-
-$ cd libs/aerospike-client-c
-$ git submodule init
-$ git submodule update
-$ make
-
 * boost install
 -----------------------------::
 
-$ cd libs/boost_1_58_0
+$ cd libs
+$ wget "http://downloads.sourceforge.net/project/boost/boost/1.58.0/boost_1_58_0.tar.gz?r=http%3A%2F%2Fwww.boost.org%2Fusers%2Fhistory%2Fversion_1_58_0.html&ts=1436937714&use_mirror=jaist" -O boost_1_58_0.tar.gz
+$ tar xvzf boost_1_58_0.tar.gz
+$ cd boost_1_58_0
 $ ./bootstrap.sh
 $ ./b2
+
+
+* aerospike-client-c
+-----------------------------::
+
+$ cd libs
+$ git clone https://github.com/aerospike/aerospike-client-c.git
+$ cd aerospike-client-c
+$ git submodule init
+$ git submodule update
+$ make
 
 * jansson
 -----------------------------::

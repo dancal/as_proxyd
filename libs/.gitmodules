@@ -1,9 +1,0 @@
-[submodule "jansson"]
-	path = jansson
-	url = https://github.com/akheron/jansson.git
-[submodule "jemalloc"]
-	path = jemalloc
-	url = https://github.com/jemalloc/jemalloc.git
-[submodule "aerospike-client-c"]
-	path = aerospike-client-c
-	url = https://github.com/aerospike/aerospike-client-c.git
