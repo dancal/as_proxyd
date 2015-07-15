@@ -65,7 +65,7 @@ $ vi conf/config.ini
 $ ./bin/as_proxyd
 
 
-as_proxyd CONFIG EXAMPLE
+as_proxyd config
 -------------
 
 conf/config.ini::
