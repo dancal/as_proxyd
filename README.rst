@@ -18,6 +18,12 @@ Description
 Compilation and Installation
 ----------------------------
 
+* centos
+-----------------------------::
+
+$ yum install openssl openssl-devel
+$
+
 * boost install
 -----------------------------::
 
@@ -32,7 +38,7 @@ $ ./b2
 * aerospike-client-c
 -----------------------------::
 
-$ cd libs
+$ cd ..
 $ git clone https://github.com/aerospike/aerospike-client-c.git
 $ cd aerospike-client-c
 $ git submodule init
@@ -42,7 +48,7 @@ $ make
 * jansson
 -----------------------------::
 
-$ cd libs
+$ cd ..
 $ git clone https://github.com/akheron/jansson.git
 $ cd jansson
 $ ./release.sh
@@ -52,7 +58,7 @@ $ make
 * jemalloc
 -----------------------------::
 
-$ cd libs
+$ cd ..
 $ git clone https://github.com/jemalloc/jemalloc.git
 $ cd jemalloc
 $ ./autogen.sh
@@ -70,7 +76,7 @@ $ ./bin/as_proxyd
 
 == GET EXAMPLE
 
-http://172.16.6.32:4000/GET?ns=viewer&set=COOKIE&key=test
+http://172.16.6.32:4000/GET?ns=test_ns&set=test_set&key=test
 
 output::
 
@@ -95,7 +101,7 @@ code::
 
  <?php
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'http://172.16.6.32:4000/GET?ns=viewer&set=COOKIE&key=test');
+    curl_setopt($ch, CURLOPT_URL, 'http://172.16.6.32:4000/GET?ns=test_ns&set=test_set&key=test');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($ch);
     var_dump($response);
@@ -114,7 +120,7 @@ code::
 
     $pData  = json_encode($post);
     $ch     = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'http://172.16.6.32:4000/PUT?ns=viewer&set=COOKIE&key=test');
+    curl_setopt($ch, CURLOPT_URL, 'http://172.16.6.32:4000/PUT?ns=test_ns&set=test_set&key=test');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $pData);
     $response = curl_exec($ch);
@@ -126,7 +132,7 @@ code::
 
  <?php
     $ch     = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'http://172.16.6.32:4000/DEL?ns=viewer&set=COOKIE&key=test');
+    curl_setopt($ch, CURLOPT_URL, 'http://172.16.6.32:4000/DEL?ns=test_ns&set=test_set&key=test');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($ch);
  ?>
