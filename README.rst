@@ -58,18 +58,15 @@ $ cd jemalloc
 $ ./autogen.sh
 $ ./configure
 
-* as_proxyd
-
-install::
+as_proxyd install::
 
 $ make
 $ vi conf/config.ini
 $ ./bin/as_proxyd
 
 
-## Example
-
-== GET EXAMPLE
+GET EXAMPLE
+-------------
 
 http://172.16.6.32:4000/GET?ns=test_ns&set=test_set&key=test
 
@@ -90,7 +87,8 @@ output::
 	proxy_code: 200
  }
 
-== GET TEST [ PHP ]
+GET TEST [ PHP ]
+-------------
 
 code::
 
@@ -102,7 +100,8 @@ code::
     var_dump($response);
  ?>
 
-### PUT TEST [ PHP ]
+PUT TEST [ PHP ]
+-------------
 
 code::
 
@@ -121,7 +120,8 @@ code::
     $response = curl_exec($ch);
  ?>
 
-### REMOVE TEST [ PHP ]
+REMOVE TEST [ PHP ]
+-------------
 
 code::
 
