@@ -68,8 +68,9 @@ $ ./bin/as_proxyd
 as_proxyd CONFIG EXAMPLE
 -------------
 
-conf/config.ini::
+conf/config.ini
 
+``` ini
 [server]
 host        = 0.0.0.0
 port        = 8000
@@ -80,7 +81,7 @@ status      = /path/alive.html
 servers     = "172.16.xx.xx,172.16.xx.xx";
 port        = 3000
 timeout     = 20
-
+```
 
 GET EXAMPLE
 -------------
