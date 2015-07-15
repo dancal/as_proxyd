@@ -54,8 +54,8 @@ $ ./release.sh
 $ ./configure
 $ make
 
-* jemalloc [ http://www.canonware.com/jemalloc/ ]::
-
+* jemalloc [ http://www.canonware.com/jemalloc/ ]
+::
 $ cd ..
 $ git clone https://github.com/jemalloc/jemalloc.git
 $ cd jemalloc
