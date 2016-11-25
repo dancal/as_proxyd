@@ -138,6 +138,15 @@ namespace http {
 			std::string AS_NAMESPACE	= map_get(params, "ns", "");
 			std::string AS_SET			= map_get(params, "set", "");
 			std::string AS_KEY			= map_get(params, "key", "");
+			std::string AS_BIN_NAMES	= map_get(params, "bins", "");
+
+			std::map<std::string,int> mBinNames;
+            std::vector<std::string> vBinsNames;
+            boost::split(vBinsNames, AS_BIN_NAMES, boost::is_any_of(","));
+			BOOST_FOREACH( const std::string& pair, vBinsNames) {
+				mBinNames[pair]			= 1;
+			}
+
 
 			json_t *root				= json_object();
 
@@ -168,7 +177,7 @@ namespace http {
                 if ( as ) {
                     nAsRet          = as->GET( AS_NAMESPACE, AS_SET, AS_KEY, bins, ttl, gen );
                     if ( json_object_size(bins) > 0 ) {
-                        json_object_set_new_nocheck(root, "as_bins", bins );
+                        json_object_set_new_nocheck(root, "results", bins );
                     } else {
                         json_decref(bins);
                     }
@@ -231,22 +240,19 @@ namespace http {
 			rep.headers.clear();
 			rep.status = reply::ok;
 
-			char *result	= json_dumps(root, 0);
+			char *result            = json_dumps(root, JSON_COMPACT | JSON_ENCODE_ANY | JSON_REAL_PRECISION(8) );
 			rep.content.append( result, strlen(result) );
-			rep.content.append("\r\n");
             free(result);
 
-            json_decref(root);
-
-			rep.headers.push_back(header("Content-Length", boost::lexical_cast<std::string>(rep.content.size())));
-			rep.headers.push_back(header("Content-Type", "application/json; charset=utf8"));
-			//rep.headers.push_back(header("Date", FormatTime("%a, %d %b %Y %H:%M:%S GMT", req.tstamp)));
-		    //rep.headers.push_back(header("Expires", "0"));
+            rep.headers.push_back(header("Content-Length", boost::lexical_cast<std::string>(rep.content.size())));
+            rep.headers.push_back(header("Content-Type", "application/json; charset=UTF-8"));
 
 			if (keepalive)
 				rep.headers.push_back(header("Connection", "Keep-Alive"));
 			else
 				rep.headers.push_back(header("Connection", "close"));
+
+            json_decref(root);
 
 		}
 

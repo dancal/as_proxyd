@@ -47,6 +47,8 @@ OBJ_AS_PROXYD_CPP = \
 	src/server.opp \
 	src/INIReader.opp \
 	src/microtime.opp \
+	src/as_gzip.opp \
+	src/wp_base64.opp \
 	src/main.opp 
 
 OBJ_AS_PROXYD_C = src/ini.o

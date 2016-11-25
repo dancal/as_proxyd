@@ -47,6 +47,8 @@
 #include "util.hpp"
 
 #include "jsonutil.hpp"
+#include "as_gzip.hpp"
+#include "wp_base64.hpp"
 
 using namespace std;
 using namespace boost;
@@ -169,44 +171,88 @@ class AS_OBJECT {
 		}
 
 		void data_convert_to_json_v1( as_record *rec, json_t *bins ) {
+		    // counter for the bins
+		    as_record_iterator it;
+		    as_record_iterator_init(&it, rec);
 
-			// counter for the bins
-			as_record_iterator it;
-			as_record_iterator_init(&it, rec);
+		    json_error_t error;
+		    try {
+		        while (as_record_iterator_has_next(&it)) {
 
-			try {
-				while (as_record_iterator_has_next(&it)) {
+        		    // we expect the bins to contain a list of [action,timestamp]
+		            as_bin *bin     = as_record_iterator_next(&it);
+        		    char *name      = as_bin_get_name(bin);
+		            if ( strlen(name) <= 0 ) { continue; }
 
-					// we expect the bins to contain a list of [action,timestamp]
-					as_bin *bin 	= as_record_iterator_next(&it);				
-					char *name 		= as_bin_get_name(bin);
-					as_val *value 	= (as_val *) as_bin_get_value(bin);
+        		    as_val *value   = (as_val *) as_bin_get_value(bin);
 
-					int nValueType  = as_val_type(value);
-                    if ( nValueType == AS_BOOLEAN ) {
-						json_object_set_new_nocheck(bins, name, json_boolean( as_boolean_toval(as_boolean_fromval(value))) );
-					} else if ( nValueType == AS_INTEGER ) {
-						json_object_set_new_nocheck(bins, name, json_integer( as_integer_toint(as_integer_fromval(value))) );
-					} else if ( nValueType == AS_STRING ) {
-						json_object_set_new_nocheck(bins, name, json_string( as_string_tostring(as_string_fromval(value))) );
-					} else if ( nValueType == AS_BYTES ) {
-						json_error_t error;
-						char *buffer 	= reinterpret_cast<char*>(as_bytes_get(as_bytes_fromval(value)));
-						json_object_set_new_nocheck(bins, name, json_loads(buffer, 0, &error) );
-					} else if ( nValueType == AS_LIST ) {
-						json_object_set_new_nocheck(bins, name, json_string("") );
-					} else if ( nValueType == AS_MAP ) {
-						json_object_set_new_nocheck(bins, name, json_string("") );
-					} else {
-						json_object_set_new_nocheck(bins, name, json_string("") );
-					}
-			
-				}
+		            int nValueType  = as_val_type(value);
+        		    if ( nValueType == AS_BOOLEAN ) {
+                		json_object_set_new_nocheck(bins, name, json_boolean( as_boolean_toval(as_boolean_fromval(value))) );
+        		    } else if ( nValueType == AS_INTEGER ) {
+                		json_object_set_new_nocheck(bins, name, json_integer( as_integer_toint(as_integer_fromval(value))) );
+		            } else if ( nValueType == AS_STRING ) {
 
-            } catch (...) {
-            }
+        		        as_string *as_str       = as_string_fromval(value);
+		                int nLength             = as_string_len( as_str );
+        		        if ( nLength <= 0 ) { continue; }
 
-			as_record_iterator_destroy(&it);
+		                const char *srcValue    = as_string_to_byte( as_str );
+	
+    		            std::string base64dec   = Base64::base64Decode(srcValue);
+            		    int base64len           = base64dec.size();
+		                const char *base64char  = &base64dec[0];
+        		        if ( base64len > 0 ) {
+
+                		    std::string sResult;
+		                    try {
+        		                char *gzencode      = Gzip::gzdecode( base64char, base64len );
+                		        if ( gzencode ) {
+                        		    sResult         = gzencode;
+		                        } else {
+        		                    sResult         = base64dec;
+                		        }
+                        		free(gzencode);
+		                    } catch(...) {
+        		                cout << "error Gzip::gzdecode" << endl;
+                		    }
+		
+        		            json_object_set_new_nocheck(bins, name, json_loads( sResult.c_str(), 0, &error) );
+                		} else {
+		                    json_object_set_new_nocheck(bins, name, json_string( srcValue ) );
+        		        }
+
+                		delete[] srcValue;
+
+		            } else if ( nValueType == AS_BYTES ) {
+        		        as_bytes *bytes = as_bytes_fromval( value );
+		                size_t size     = as_bytes_size(bytes);
+        		        if ( size <= 0 ) { continue; }
+
+		                char *buffer    = reinterpret_cast<char*>(as_bytes_get(bytes));
+        		        json_object_set_new_nocheck(bins, name, json_loads(buffer, 0, &error) );
+		                //free(buffer);
+        		    } else if ( nValueType == AS_LIST ) {
+                		char *buffer    = as_val_tostring( value );
+			            json_object_set_new_nocheck(bins, name, json_loads(buffer, 0, &error) );
+                		free(buffer);
+		            } else if ( nValueType == AS_MAP ) {
+        		        char *buffer    = as_val_tostring( value );
+		                json_object_set_new_nocheck(bins, name, json_loads(buffer, 0, &error) );
+                		free(buffer);
+		            } else {
+        		        //char *buffer    = as_val_tostring( value );
+                		//json_object_set_new_nocheck(bins, name, json_loads(buffer, 0, &error) );
+		                json_object_set_new_nocheck(bins, name, json_string("") );
+            		}
+
+		        }
+
+		    } catch (...) {
+		    }
+
+		    as_record_iterator_destroy(&it);
+
 			
 		}
 
