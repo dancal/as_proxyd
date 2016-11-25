@@ -21,8 +21,6 @@
 #include <boost/shared_ptr.hpp>
 #include <vector>
 
-#include <mecab.h>
-
 #include <boost/filesystem/operations.hpp>
 #include <ctime>
 #include <iostream>

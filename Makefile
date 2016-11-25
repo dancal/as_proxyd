@@ -17,18 +17,17 @@ LD = g++
 OPTIMISATIONS = -O2 -DNDEBUG -DPIC -fPIC -msse3 -pipe -fomit-frame-pointer -frerun-cse-after-loop -frerun-loop-opt -fprefetch-loop-arrays
 OPT_STATIC_LIBS = -L/usr/lib64 -lpthread -lstdc++ -lrt -lc -lm -ldl -lz -lssl -lcrypto -ljemalloc
 
-CPP_INCLUDE = -I./libs/aerospike-client-c/target/Linux-x86_64/include -I./libs/jansson/src -I./libs/boost_1_58_0
+CPP_INCLUDE = -I./libs/aerospike-client-c/target/Linux-x86_64/include -I./libs/jansson/src -I./libs/boost_1_62_0
 
-CPP_EXT_FLAGS = ./libs/jemalloc/lib/libjemalloc.a \
-				./libs/aerospike-client-c/target/Linux-x86_64/lib/libaerospike.a \
+CPP_EXT_FLAGS = ./libs/aerospike-client-c/target/Linux-x86_64/lib/libaerospike.a \
 				./libs/jansson/src/.libs/libjansson.a \
-				./libs/boost_1_58_0/stage/lib/libboost_filesystem.a \
-				./libs/boost_1_58_0/stage/lib/libboost_thread.a \
-				./libs/boost_1_58_0/stage/lib/libboost_system.a \
-				./libs/boost_1_58_0/stage/lib/libboost_regex.a \
-				./libs/boost_1_58_0/stage/lib/libboost_iostreams.a \
-				./libs/boost_1_58_0/stage/lib/libboost_timer.a \
-				-lpthread
+				./libs/boost_1_62_0/stage/lib/libboost_filesystem.a \
+				./libs/boost_1_62_0/stage/lib/libboost_thread.a \
+				./libs/boost_1_62_0/stage/lib/libboost_system.a \
+				./libs/boost_1_62_0/stage/lib/libboost_regex.a \
+				./libs/boost_1_62_0/stage/lib/libboost_iostreams.a \
+				./libs/boost_1_62_0/stage/lib/libboost_timer.a \
+				-lpthread -ljemalloc
 
 # default flags
 CFLAGS = ${DEBUG} ${OPTIMISATIONS}
