@@ -4,9 +4,9 @@ CC = gcc
 CPP = g++
 LD = g++
 
-#CC = /opt/rh/devtoolset-2/root/usr/bin/gcc
-#CPP = /opt/rh/devtoolset-2/root/usr/bin/g++
-#LD = /opt/rh/devtoolset-2/root/usr/bin/g++
+CC = /opt/rh/devtoolset-3/root/usr/bin/gcc
+CPP = /opt/rh/devtoolset-3/root/usr/bin/g++
+LD = /opt/rh/devtoolset-3/root/usr/bin/g++
 
 #debug
 #DEBUG = -g3 -fno-inline -pg -Wall

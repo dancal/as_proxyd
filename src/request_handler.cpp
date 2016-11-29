@@ -156,16 +156,6 @@ namespace http {
 				json_object_set_new_nocheck(root, "proxy_code", json_integer(100) );
 				json_object_set_new_nocheck(root, "proxy_status", json_string("OK") );
 
-			} else if ( AS_API == "/health" ) {
-
-				if ( asOP->GetAsHealthStatus() ) {
-					json_object_set_new_nocheck(root, "proxy_code", json_integer(200) );
-					json_object_set_new_nocheck(root, "proxy_status", json_string("OK") );
-				} else {
-					json_object_set_new_nocheck(root, "proxy_code", json_integer(101) );
-					json_object_set_new_nocheck(root, "proxy_status", json_string("FAIL") );
-				}
-	
 			} else if ( AS_API == "/get" ) {
 
 				// ok
@@ -185,56 +175,8 @@ namespace http {
                     json_decref(bins);
                 }
 
-                json_object_set_new_nocheck(root, "as_gen", json_integer(gen) );
-                json_object_set_new_nocheck(root, "as_ttl", json_integer(ttl) );
-
-                json_object_set_new_nocheck(root, "as_status_msg", json_string( as_error_string((as_status)nAsRet)) );
-                json_object_set_new_nocheck(root, "as_status_code", json_integer(nAsRet) );
-
-
-                json_object_set_new_nocheck(root, "proxy_code", json_integer(200) );
-                json_object_set_new_nocheck(root, "proxy_status", json_string("OK") );
-
-            } else if ( AS_API == "/put" ) {
-
-                std::string AS_TTL_STR  = map_get(params, "ttl", "0");
-                int AS_TTL              = string2int( AS_TTL_STR );
-
-                AS_OBJECT *as       	= asOP->GetAsObject();
-                if ( as ) {
-    	            json_error_t error;
-	                json_t *json_load   = json_loads( req.content.c_str(), 0, &error);
-
-	                nAsRet          	= as->PUT( AS_NAMESPACE, AS_SET, AS_KEY, json_load, AS_TTL );
-
-                	json_decref(json_load);
-                }
-
-                json_object_set_new_nocheck(root, "as_ttl", json_integer( AS_TTL ) );
-                json_object_set_new_nocheck(root, "as_status_msg", json_string( as_error_string((as_status)nAsRet)) );
-                json_object_set_new_nocheck(root, "as_status_code", json_integer(nAsRet) );
-
-                json_object_set_new_nocheck(root, "proxy_code", json_integer(200) );
-                json_object_set_new_nocheck(root, "proxy_status", json_string("OK") );
-
-            } else if ( AS_API == "/del" ) {
-
-                AS_OBJECT *as       = asOP->GetAsObject();
-                if ( as ) {
-                    nAsRet          = as->REMOVE( AS_NAMESPACE, AS_SET, AS_KEY );
-                }
-                json_object_set_new_nocheck(root, "proxy_code", json_integer(200) );
-                json_object_set_new_nocheck(root, "proxy_status", json_string("OK") );
-
-                json_object_set_new_nocheck(root, "as_status_msg", json_string( as_error_string((as_status)nAsRet)) );
-                json_object_set_new_nocheck(root, "as_status_code", json_integer(nAsRet) );
-
-			} else {
-				// pass
-				json_object_set_new_nocheck(root, "proxy_code", json_integer(404) );
-				json_object_set_new_nocheck(root, "proxy_status", json_string("API ERROR") );
 			}
-			//json_object_set_new_nocheck(root, "proxy_latency", json_real( microtime::seconds_since(__max_exec_start_time__) ));
+			json_object_set_new_nocheck(root, "took", json_real( microtime::seconds_since(__max_exec_start_time__) ));
 
 			//build http response
 			rep.headers.clear();
